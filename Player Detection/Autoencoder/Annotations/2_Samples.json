@@ -1,0 +1,257 @@
+{
+    "images": [
+        {
+            "id": 2006,
+            "dataset_id": 3,
+            "category_ids": [],
+            "path": "/datasets/CourtData/court_dp_1.jpg",
+            "width": 1920,
+            "height": 1080,
+            "file_name": "court_dp_1.jpg",
+            "annotated": false,
+            "annotating": [],
+            "num_annotations": 0,
+            "metadata": {},
+            "deleted": false,
+            "milliseconds": 0,
+            "events": [],
+            "regenerate_thumbnail": false
+        },
+        {
+            "id": 2007,
+            "dataset_id": 3,
+            "category_ids": [],
+            "path": "/datasets/CourtData/court_dp_10.jpg",
+            "width": 1920,
+            "height": 1080,
+            "file_name": "court_dp_10.jpg",
+            "annotated": false,
+            "annotating": [],
+            "num_annotations": 0,
+            "metadata": {},
+            "deleted": false,
+            "milliseconds": 0,
+            "events": [],
+            "regenerate_thumbnail": false
+        }
+    ],
+    "categories": [
+        {
+            "id": 6,
+            "name": "court",
+            "supercategory": "",
+            "color": "#b50855",
+            "metadata": {},
+            "keypoint_colors": []
+        }
+    ],
+    "annotations": [
+        {
+            "id": 119,
+            "image_id": 2006,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#55f5ab",
+            "keypoints": [
+                -11,
+                661,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 120,
+            "image_id": 2006,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#00e125",
+            "keypoints": [
+                1925,
+                610,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 121,
+            "image_id": 2006,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#eb485b",
+            "keypoints": [
+                1924,
+                1080,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 122,
+            "image_id": 2006,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#73a9dd",
+            "keypoints": [
+                -5,
+                1083,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 128,
+            "image_id": 2007,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#e07678",
+            "keypoints": [
+                -3,
+                690,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 129,
+            "image_id": 2007,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#ae481b",
+            "keypoints": [
+                835,
+                623,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 130,
+            "image_id": 2007,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#2da0eb",
+            "keypoints": [
+                1931,
+                681,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 131,
+            "image_id": 2007,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#d33044",
+            "keypoints": [
+                1961,
+                1117,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        },
+        {
+            "id": 132,
+            "image_id": 2007,
+            "category_id": 6,
+            "segmentation": [],
+            "area": 0,
+            "bbox": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "iscrowd": false,
+            "isbbox": false,
+            "color": "#f71357",
+            "keypoints": [
+                -12,
+                1099,
+                2
+            ],
+            "metadata": {},
+            "num_keypoints": 1
+        }
+    ]
+}
