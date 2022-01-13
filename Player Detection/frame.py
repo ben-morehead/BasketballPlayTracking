@@ -82,8 +82,13 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
     ycenter = row['ycenter']
     avg_x += xcenter
     avg_y += ycenter
-  avg_x = int(avg_x / (len(updated_boxes)))
-  avg_y = int(avg_y / (len(updated_boxes)))
+  
+  if len(updated_boxes) == 0:
+    avg_x = -1
+    avg_y = -1
+  else:
+    avg_x = int(avg_x / (len(updated_boxes)))
+    avg_y = int(avg_y / (len(updated_boxes)))
   
   # Create a Rectangle patch and Illustrate Center
   if show_results:
@@ -93,15 +98,23 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
     for index, row in updated_boxes.iterrows():
         height = row["height"]
         width = row["width"]
-        cv2.rectangle(img_copy,(row["xcenter"] - int(width / 2), row["ycenter"] - int(height / 2)) , (row["xcenter"] + int(width / 2), row["ycenter"] + int(height / 2)), (255,0,0),3)
-    cv2.circle(img_copy,(avg_x, avg_y), 5, (0, 150, 255), -1)
+        top_left_x = max(row["xcenter"] - int(width / 2), 0)
+        top_left_y = max(row["ycenter"] - int(height / 2), 0)
+        bottom_right_x = min(row["xcenter"] + int(width / 2), 1920)
+        bottom_right_y = min(row["ycenter"] + int(height / 2), 1080)
+        print(top_left_x, top_left_y, bottom_right_x, bottom_right_y)
+        cv2.rectangle(img_copy, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y), (255,0,0), 3)
+    cv2.circle(img_copy,(avg_x, avg_y), 8, (255, 255, 255), -1)
 
     img_copy = img_copy[:,:,::-1]
+    cv2.namedWindow("Frame", cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('Frame', 640, 360)
+    #imS = cv2.resize(img_copy, (640,360))   
     cv2.imshow("Frame", img_copy)
     cv2.waitKey(0)
   return (avg_x, avg_y)
 
 if __name__ == "__main__":
-    img = Image.open('Media\\Full_Court_Photo_Set\\court_dp_32.jpg')
+    img = Image.open('Media\\Full_Court_Photo_Set\\court_dp_327.jpg')
     court_detector, player_detector = get_necessary_models()
     print(get_center_of_play(img, court_detector, player_detector, show_results=True))
