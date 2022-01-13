@@ -45,15 +45,19 @@ def get_necessary_models():
     return autoencoder, yolov5_model
 
 def get_center_of_play(img, court_detector, player_detector, show_results=False):
+  
   overlap_perc = 0.05
-  match_ratio = 0.9
+  match_ratio = 0.7
 
   output = player_detector(img)
   pd_output = output.pandas()
   boxes = get_people(pd_output.xywh[0])
   extracted_img = pd_output.imgs[0]
 
+  print("Stutter_POINT")
   mask = convert_img_to_mask(extracted_img, court_detector)
+  #print(mask.shape)
+  #cv2.imshow("Mask", mask)
   top_half = mask[:int(mask.shape[0] / 2)]
 
   index_list = []
@@ -71,9 +75,9 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
     sumation = segment.sum()
     if float(sumation/seg_size) > match_ratio:
       index_list.append(index)
-  
+  #print("Index List: {}".format(index_list))
   updated_boxes = boxes.loc[index_list]
-  print(updated_boxes)
+  #print("Updated_Boxes:{}".format(updated_boxes))
 
   avg_x = 0
   avg_y = 0
