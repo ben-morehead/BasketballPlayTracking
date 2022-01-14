@@ -54,7 +54,6 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
   boxes = get_people(pd_output.xywh[0])
   extracted_img = pd_output.imgs[0]
 
-  print("Stutter_POINT")
   mask = convert_img_to_mask(extracted_img, court_detector)
   #print(mask.shape)
   #cv2.imshow("Mask", mask)
