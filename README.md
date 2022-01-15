@@ -7,10 +7,15 @@ I got a lot of my inspiration from the study shown here (Simone Francia https://
 
 ## Contents
 [General Overview](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#general-overview)
+
 [Court Detecting Autoencoder](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#court-detecting-autoencoder)
+
 [Center of Play Detection](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#center-of-play-detection)
+
 [Live Tracking the Play](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#live-tracking-the-play)
+
 [Next Steps](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#next-steps)
+
 [Potential Improvements](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#potential-improvements)
 
 
