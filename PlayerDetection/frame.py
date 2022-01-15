@@ -10,7 +10,8 @@ import torch.optim as optim
 import torchvision
 import numpy as np
 from PIL import Image
-from Autoencoder.objects import AutoEncoder
+#from Autoencoder.objects import AutoEncoder
+from PlayerDetection.Autoencoder.objects import AutoEncoder
 
 #Getting the 
 def convert_img_to_mask(img, model):
@@ -21,7 +22,7 @@ def convert_img_to_mask(img, model):
   input = input.unsqueeze(0)
 
   output = model(input)
-  sig_out = F.sigmoid(output)
+  sig_out = torch.sigmoid(output)
   sig_output = (sig_out > 0.5).float()
   output_img = np.array(sig_output)
   output_img = np.array(output_img[0])
@@ -31,23 +32,23 @@ def convert_img_to_mask(img, model):
   return output_img
 
 def get_people(boxes):
-  boxes_people = boxes[boxes["name"] == "person"]
-  boxes_people["xcenter"] = boxes_people["xcenter"].astype(int)
-  boxes_people["ycenter"] = boxes_people["ycenter"].astype(int)
-  boxes_people["width"] = boxes_people["width"].astype(int)
-  boxes_people["height"] = boxes_people["height"].astype(int)
+  boxes_people = boxes[boxes.loc[:,"name"] == "person"]
+  boxes_people.loc[:,"xcenter"] = boxes_people["xcenter"].astype(int)
+  boxes_people.loc[:,"ycenter"] = boxes_people["ycenter"].astype(int)
+  boxes_people.loc[:,"width"] = boxes_people["width"].astype(int)
+  boxes_people.loc[:,"height"] = boxes_people["height"].astype(int)
   return boxes_people
 
 def get_necessary_models():
     autoencoder = AutoEncoder()
-    autoencoder.load_state_dict(torch.load('Player Detection\\Autoencoder\\Models\\model_weights_100samples.pth'))
+    autoencoder.load_state_dict(torch.load('PlayerDetection\\Autoencoder\\Models\\model_weights_100samples.pth'))
     yolov5_model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
     return autoencoder, yolov5_model
 
-def get_center_of_play(img, court_detector, player_detector, show_results=False):
+def get_center_of_play(img, court_detector, player_detector, show_results=False, demo_usage=False):
   
   overlap_perc = 0.05
-  match_ratio = 0.7
+  match_ratio = 0.6
 
   output = player_detector(img)
   pd_output = output.pandas()
@@ -55,9 +56,26 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
   extracted_img = pd_output.imgs[0]
 
   mask = convert_img_to_mask(extracted_img, court_detector)
-  #print(mask.shape)
-  #cv2.imshow("Mask", mask)
+
   top_half = mask[:int(mask.shape[0] / 2)]
+
+  if demo_usage:
+    print("-- Yolo Model Output --")
+    demo_img = np.array(img)
+    for index, row in boxes.iterrows():
+        height = row["height"]
+        width = row["width"]
+        top_left_x = max(row["xcenter"] - int(width / 2), 0)
+        top_left_y = max(row["ycenter"] - int(height / 2), 0)
+        bottom_right_x = min(row["xcenter"] + int(width / 2), 1920)
+        bottom_right_y = min(row["ycenter"] + int(height / 2), 1080)
+        cv2.rectangle(demo_img, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y), (255,0,0), 3)
+    demo_img = demo_img[:,:,::-1]
+    cv2.namedWindow("Full YOLO", cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('Full YOLO', 640, 360)
+    #imS = cv2.resize(img_copy, (640,360))   
+    cv2.imshow("Full YOLO", demo_img)
+    cv2.waitKey(0)
 
   index_list = []
   for index, row in boxes.iterrows():
@@ -68,15 +86,12 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
     right_ind = row["xcenter"] + int(width/2)
     top_ind = row["ycenter"] + int(height/2) - int(height * overlap_perc)
     bot_ind = row["ycenter"] + int(height/2)
-    #print("{}. Top: {} | Bot: {} | Left: {} | Right: {}".format(index, top_ind, bot_ind, left_ind, right_ind))
     segment = mask[top_ind:bot_ind]
     seg_size = segment.size
     sumation = segment.sum()
     if float(sumation/seg_size) > match_ratio:
       index_list.append(index)
-  #print("Index List: {}".format(index_list))
   updated_boxes = boxes.loc[index_list]
-  #print("Updated_Boxes:{}".format(updated_boxes))
 
   avg_x = 0
   avg_y = 0
@@ -96,7 +111,6 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
   # Create a Rectangle patch and Illustrate Center
   if show_results:
     img_copy = np.array(img)
-    print(img_copy.shape)
     
     for index, row in updated_boxes.iterrows():
         height = row["height"]
@@ -105,14 +119,13 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
         top_left_y = max(row["ycenter"] - int(height / 2), 0)
         bottom_right_x = min(row["xcenter"] + int(width / 2), 1920)
         bottom_right_y = min(row["ycenter"] + int(height / 2), 1080)
-        print(top_left_x, top_left_y, bottom_right_x, bottom_right_y)
         cv2.rectangle(img_copy, (top_left_x, top_left_y), (bottom_right_x, bottom_right_y), (255,0,0), 3)
     cv2.circle(img_copy,(avg_x, avg_y), 8, (255, 255, 255), -1)
 
     img_copy = img_copy[:,:,::-1]
+    print("-- Cross Reference Output --")
     cv2.namedWindow("Frame", cv2.WINDOW_NORMAL)
     cv2.resizeWindow('Frame', 640, 360)
-    #imS = cv2.resize(img_copy, (640,360))   
     cv2.imshow("Frame", img_copy)
     cv2.waitKey(0)
   return (avg_x, avg_y)
@@ -120,4 +133,4 @@ def get_center_of_play(img, court_detector, player_detector, show_results=False)
 if __name__ == "__main__":
     img = Image.open('Media\\Full_Court_Photo_Set\\court_dp_327.jpg')
     court_detector, player_detector = get_necessary_models()
-    print(get_center_of_play(img, court_detector, player_detector, show_results=True))
+    print(get_center_of_play(img, court_detector, player_detector, show_results=True, demo_usage = False))
