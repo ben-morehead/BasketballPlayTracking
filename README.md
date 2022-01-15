@@ -6,12 +6,12 @@ I'm looking to create a tool to allow hands free recording of a general basketba
 I got a lot of my inspiration from the study shown here (Simone Francia https://www.researchgate.net/publication/330534530_Classificazione_di_Azioni_Cestistiche_mediante_Tecniche_di_Deep_Learning). I used it as the blueprint and focused my effort as to how best to reach my personal goal of tracking the focus of the play.
 
 ## Contents
-[General Overview]()
-[Court Detecting Autoencoder]()
-[Center of Play Detection]()
-[Live Tracking the Play]()
-[Next Steps]()
-[Noted Improvements]()
+[General Overview](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#general-overview)
+[Court Detecting Autoencoder](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#court-detecting-autoencoder)
+[Center of Play Detection](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#center-of-play-detection)
+[Live Tracking the Play](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#live-tracking-the-play)
+[Next Steps](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#next-steps)
+[Potential Improvements](https://github.com/ben-morehead/BasketballPlayTracking/blob/readme/README.md#potential-improvements)
 
 
 ## General Overview
@@ -19,4 +19,4 @@ I got a lot of my inspiration from the study shown here (Simone Francia https://
 ## Center of Play Detection
 ## Live Tracking the Play
 ## Next Steps
-## Noted Improvements
+## Potential Improvements
