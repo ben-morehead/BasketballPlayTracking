@@ -56,7 +56,7 @@ class DataLoader():
     print("Training Pool Size: {} | Test Pool Size: {}".format(len(self.training_pool), len(self.test_pool)))
   
   def generate_parsed_dict(self):
-    info_descriptor = open("Autoencoder\\Annotations\\100_Samples.json")
+    info_descriptor = open("PlayerDetection\\Autoencoder\\Annotations\\100_Samples.json")
     info_dict = json.load(info_descriptor)
     parsed_dict = {}
     for entry in info_dict["images"]:
