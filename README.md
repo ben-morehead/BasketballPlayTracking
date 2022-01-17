@@ -1,4 +1,5 @@
 # Basketball Play Tracking
+![Basketball Play Tracking](Examples/StockPhoto.jpg)
 
 ## Motivation 
 I'm looking to create a tool to allow hands free recording of a general basketball game. I find, especially while recording games as a coach, that it would be convenient to just set my camera down and let the computer figure out where it should be looking. Throughout my time studying I have gained experience on everything I would need to accomplish this goal, so I figured I'd just go for it.
