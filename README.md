@@ -29,10 +29,26 @@ Putting those pieces together lead to a set of coordinates that represent where 
 I want to be able to take a photo of a basketball court and convert it into a bitmap representation of which pixels are/aren't the court. An autoencoder allows for this with relatively high accuracy as its able to break down and recreate an input frame in the format desired. The autoencoder consists of a simple convolutional encoder in series with a convolutional decoder.
 
 > Ideal Function of the Autoencoder
+> ![Input and Label of Autoencoder dataset](Examples/InputLabel.png)
+
 #### Structure
+The autoencoder was adapted from Francia's paper referenced above. The kernel and stride lengths listed in the paper bring up some mathematical issues with the output dimensions of the neural network being different from the input dimensions, but with some alterations in the decoder layers I was able to get the dimensions to match up. After reworking the structure a little, I removed redundant layers to ensure optimal speed when processing datapoints.
+
 #### Data Formatting
+The neural network itself takes 720x480 tensor, which is fully formatted by the DataLoader() object that is defined in objects.py. The dataloader works in conjunction with the neural network by preparing all the dataset images for compatibility with the autoencoder object, as well as handling the batching and randomization of the dataset.
+
+The output of the autoencoder is a 720x480 tensor which can be put through a sigmoid function and rounded to achieve a bitmap of whether a pixel is considered "the court" or not.
+
 #### Training Strategy
+I at this point run into an issue as I need to train the neural network despite not having a full dataset to work with. I started with about 100 images with corresponding court labels, and a full photo set of 1000 images to label and apply data augmentation techniques to. I wanted to make some more progress on the functionality of the project as a whole and not spend too much initial time labelling datapoints, so I decided to make the best I could out of the datapoints I had labeled. This meant tweaking batch size and epochs very mildy, but I figured it wasn't worth tuning too much without a proper and full data set. That being said I found the best results to be at 100 epochs and a batch size of 5. Shown below is a sample output at different checkpoints in the final training sequence.
+> Sample Training Results
+> ![Sample Outputs during Training](Examples/Autoencoder_Training.png)
+
 #### Results
+I was shockingly surprised by the accuracy that could be acquired off of such a small sample size. The model was able to detect most of the court, meaning it was functional enough to move on to the next challenge in this project. Although the model itself is not anywhere close to being ready for live video tracking on a random court with a random viewing angle, I have the infrastructure in place to easily improve on this part of the design a little later on.
+
+> Final Function of the Autoencoder
+> ![Input and Output of Autoencoder dataset](Examples/InputOutput.png)
 
 ## Center of Play Detection
 #### Concept
@@ -56,3 +72,5 @@ I want to be able to take a photo of a basketball court and convert it into a bi
 - [ ] **Live Tracking the Play** *Controller System*: Research control systems to aid in the camera tracing algorithm
 - [ ] **Live Tracking the Play** *Introduction of Sectors*: Introduce set spots where the camera can turn to to decrease the amount of camera movement total
 - [ ] **Live Tracking the Play** *Additional Processes*: Increase the number of datapoints that can be acquired from the center of play tracking algorithm
+
+## Project Installation
