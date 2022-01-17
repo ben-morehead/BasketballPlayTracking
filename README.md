@@ -79,14 +79,23 @@ If enough of the autoencoder "court pixels" interesect with the detection (say 9
 
 ## Live Tracking the Play
 #### Parallelization
+One of the costs to having to doing live event recognition is the time it takes for the computer to process the frame through several models and produce an output. In this case it takes about 0.9 seconds to produce the center of play which causes an issue for tracking a live basketball game at 24 frames per second. To handle this I set up a basic communication path between two processes using the python library's queue object, and used that to allow the computer to compute the center of play, but also make adjustments to the camera at the same time. This parallelization is essential to the project functioning at live speeds.
+
 #### Camera Simulation
+The last thing I wanted to iron out was how to simulate a camera in real time. For this I just kept an internal state of what could be considered the camera's focus. The camera focus point is constantly trying to bring itself to the center of play, and this idea is going to be how the physical components behave as well. Where in the simulation we are constantly moving the camera focus laterally, in real life it will be a rotation around the tripod's axis. 
+
 #### Results
+Running this simulation by just an eye test shows the potential for a very high quality tool. The camera focus naturally moves towards the ball handler as we would hope with our average player location model. Seen below is a sample of the simulation, with the flashing red dots being new readings from the computer vision models, and the blue dot being the camera focus. The output shown was made in real time, with each frame being written as it was being read by the system.
+
+> Sample of Live Play Tracking
+>
+> ![Live Play Tracking](Examples/Demo_Gif.gif)
 
 ## Next Steps
-#### Camera Control
-#### Camera Tracking
-#### Improving the Design
-#### Testing
+- [ ] **Camera Control:** Setting up the motors and communication system between the tripod mechanism and the computer
+- [ ] **Camera Tracking:** Setting up an object tracker using the motor system and live image recognition
+- [ ] **Improvements:** Tackling the improvements that are known to exist to improve performance of the simulations
+- [ ] **Testing:** Integrating everything and testing on some actual basketball games
 
 ## Potential Improvements
 - [ ] **Autoencoder** *Data Set Size*: Need to label more datapoints and apply data augmentation techniques to better train the model
@@ -96,3 +105,9 @@ If enough of the autoencoder "court pixels" interesect with the detection (say 9
 - [ ] **Live Tracking the Play** *Additional Processes*: Increase the number of datapoints that can be acquired from the center of play tracking algorithm
 
 ## Project Installation
+*Quick Note: None of the media I used is uploaded. I have however uploaded the model checkpoint for the Autoencoder I have been using. There are hardcoded folders in many of the scripts so in order to adapt the project to your own machine you will have to jump through a few hoops and change the directories in the files of interest. If you've seen how tricky it is to recreate and still wish to download it feel free to: here are the instructions.*
+
+1. Clone repository
+2. Install the pre-requisites (pip install -r requirements.txt)
+3. You will need a Media Folder and adjustments to the PlayerDetection code to run the tests and demonstrations on your local machine.
+4. run.py holds demonstration code that will walk through the different components of the project
