@@ -1,5 +1,5 @@
 # Basketball Play Tracking
-![Basketball Play Tracking](Examples/StockPhoto.jpg)
+![Basketball Play Tracking](Examples/Cover.png)
 
 ## Motivation 
 I'm looking to create a tool to allow hands free recording of a general basketball game. I find, especially while recording games as a coach, that it would be convenient to just set my camera down and let the computer figure out where it should be looking. Throughout my time studying I have gained experience on everything I would need to accomplish this goal, so I figured I'd just go for it.
@@ -53,8 +53,24 @@ I was shockingly surprised by the accuracy that could be acquired off of such a 
 
 ## Center of Play Detection
 #### Concept
+Now that I have a way of differentiating who in a given frame is on the court and who is not, I just need to combine that with a person detection model to identify where players are congregated. For the person detection I did some quick research and found that Ultralytics had pre-trained YOLO models in the torch model hub, so I imported that and used the bounding box information.
+
 #### YOLO Output
+Shown below is an example of an output of the Ultralytics YOLOv5 model. Provided in the output is a pandas dataframe that contains the information on where the bounding boxes were in the frame, the class prediction, and a confidence score.
+
+> Sample Output of Ultralytics YOLO Model
+> ![Ultralytics YOLOv5 Sample](Examples/JustYolo.png)
+
 #### Finding the Players
+All that has to be done now is combine the two models together to figure out who is on the court and who isn't, and then average out the center positions of the people of interest. It was a very quick implementation, and can be easily tweaked by adjusting the ratio of matching pixels needed to be considered relevant. In the example below the yellow represents the court that does not interesect the toggle region, and the black section represents the toggle area. 
+
+> Visualization of Intersecting Court and Player Regions
+> ![Sample Bounding Box](Examples/ExampleOverlap.png)
+
+If enough of the autoencoder "court pixels" interesect with the detection (say 90%), then we take into account that detections location in our calculation. Below is a filtered version of the yolo model output above, with the white dot marking the average player position.
+
+> Final Filtered Image and Center of Play
+> ![Center of Play](Examples/YoloAndEncoder.png)
 
 ## Live Tracking the Play
 #### Parallelization
