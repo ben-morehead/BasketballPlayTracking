@@ -26,6 +26,9 @@ Putting those pieces together lead to a set of coordinates that represent where 
 
 ## Court Detecting Autoencoder
 #### Concept
+I want to be able to take a photo of a basketball court and convert it into a bitmap representation of which pixels are/aren't the court. An autoencoder allows for this with relatively high accuracy as its able to break down and recreate an input frame in the format desired. The autoencoder consists of a simple convolutional encoder in series with a convolutional decoder.
+
+> Ideal Function of the Autoencoder
 #### Structure
 #### Data Formatting
 #### Training Strategy
@@ -48,8 +51,8 @@ Putting those pieces together lead to a set of coordinates that represent where 
 #### Testing
 
 ## Potential Improvements
-- [ ] \(Autoencoder) *Data Set Size*: Need to label more datapoints and apply data augmentation techniques to better train the model
-- [ ] \(Autoencoder) *Hyperparameter Tuning*: With a full dataset can adjust the parameters of the autoencoder training to improve test accuracy
-- [ ] \(Live Tracking the Play) *Controller System*: Research control systems to aid in the camera tracing algorithm
-- [ ] \(Live Tracking the Play) *Introduction of Sectors*: Introduce set spots where the camera can turn to to decrease the amount of camera movement total
-- [ ] \(Live Tracking the Play) *Additional Processes*: Increase the number of datapoints that can be acquired from the center of play tracking algorithm
+- [ ] **Autoencoder** *Data Set Size*: Need to label more datapoints and apply data augmentation techniques to better train the model
+- [ ] **Autoencoder** *Hyperparameter Tuning*: With a full dataset can adjust the parameters of the autoencoder training to improve test accuracy
+- [ ] **Live Tracking the Play** *Controller System*: Research control systems to aid in the camera tracing algorithm
+- [ ] **Live Tracking the Play** *Introduction of Sectors*: Introduce set spots where the camera can turn to to decrease the amount of camera movement total
+- [ ] **Live Tracking the Play** *Additional Processes*: Increase the number of datapoints that can be acquired from the center of play tracking algorithm
